@@ -45,6 +45,12 @@ public class Fly {
         this.speed = speed;
     }
 
+    // ***** Object Method Overrides *****
+    public String toString(){
+        if (this.mass == 0){
+             return "im dead cause my mass = " + mass;
+        }
+    }
 
     // ***** Fly Methods *****
 
