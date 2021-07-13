@@ -11,7 +11,7 @@ public class Fly {
     // ***** Main Function *****
     public static void main(String[] args) {
 
-        Fly pepe = new Fly(4.12);
+        Fly pepe = new Fly(5);
         Fly joe =  new Fly();
         System.out.println(pepe);
         pepe.grow(10);
@@ -43,7 +43,6 @@ public class Fly {
         return this.speed;
     }
 
-
     // ***** Setters *****
     public void setMass(double mass){
         this.mass = mass;
@@ -66,9 +65,11 @@ public class Fly {
         if (mass + addMass < 20){
             speed += addMass;
             return mass += addMass;
+
         } else if (mass > 20){
-            speed -= (((mass + addMass) - 20) * 0.5);
+            speed -= (addMass * 0.5);
             return mass += addMass;
+
         } else {
             speed += (20 - mass);
             speed -= (((mass + addMass) - 20) * 0.5);
