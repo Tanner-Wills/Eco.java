@@ -6,13 +6,20 @@ public class Fly {
     private double mass = 5;
     private double speed = 10;
 
+    //TODO: specify all decimal values to 2 decimal points
 
     // ***** Main Function *****
     public static void main(String[] args) {
 
-        Fly pepe = new Fly(4.1);
+        Fly pepe = new Fly(4.12);
+        Fly joe =  new Fly();
         System.out.println(pepe);
-
+        pepe.grow(10);
+        System.out.println(pepe);
+        pepe.grow(10);
+        System.out.println(pepe);
+        pepe.grow(10);
+        System.out.println(pepe);
     }
 
     // ***** Fly Constructors *****
@@ -45,15 +52,36 @@ public class Fly {
         this.speed = speed;
     }
 
-    // ***** Object Method Overrides *****
+    // ***** Fly Methods *****
     public String toString(){
         if (this.mass == 0){
-             return "im dead cause my mass = " + mass;
+            return "I'm DEAD but I used to be a fly with a speed of " + String.format("%.2f", speed) + ".";
+        } else {
+            return "I'm a speedy fly with " + String.format("%.2f", speed) + " speed and " + String.format("%.2f", mass) + " mass.";
+
         }
     }
 
-    // ***** Fly Methods *****
+    public double grow(int addMass){
+        if (mass + addMass < 20){
+            speed += addMass;
+            return mass += addMass;
+        } else if (mass > 20){
+            speed -= (((mass + addMass) - 20) * 0.5);
+            return mass += addMass;
+        } else {
+            speed += (20 - mass);
+            speed -= (((mass + addMass) - 20) * 0.5);
+            return mass += addMass;
+        }
+    }
 
-
+    public boolean isDead(){
+        if(mass == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
