@@ -80,7 +80,7 @@ public class Frog {
 
     public String toString(){
         if(isFroglet){
-            return "My name is " + name + " and I’m a rare froglet! I’m " + age + " months old and my tongue has a speed of " + String.format("%.2f", tongueSpeed) + ".";
+            return "My name is " + name + " and I’m a rare froglet. I’m " + age + " months old and my tongue has a speed of " + String.format("%.2f", tongueSpeed) + ".";
         } else {
             return "My name is " + name + " and I’m a rare frog. I’m " + age + " months old and my tongue has a speed of " + String.format("%.2f", tongueSpeed) + ".";
         }
