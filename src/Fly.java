@@ -3,10 +3,8 @@
 public class Fly {
 
     // ***** Fly Variables *****
-    private double mass = 5;
-    private double speed = 10;
-
-    //TODO: specify all decimal values to 2 decimal points
+    private double mass;
+    private double speed;
 
     // ***** Main Function *****
     public static void main(String[] args) {
@@ -20,20 +18,24 @@ public class Fly {
         System.out.println(pepe);
         pepe.grow(10);
         System.out.println(pepe);
+        Fly myFly1 = new Fly();
+        Fly myFly2 = new Fly(12, 12);
+        System.out.println(myFly1.toString());
+        System.out.println(myFly2.toString());
     }
 
     // ***** Fly Constructors *****
-    public Fly(double mass, double speed){
-        this.mass = mass;
-        this.speed = speed;
+
+    public Fly(){
+        this(5, 10);
     }
     public Fly(double mass){
         this(mass, 10);
     }
-    public Fly(){
-        this(5, 10);
+    public Fly(double mass, double speed){
+        this.mass = mass;
+        this.speed = speed;
     }
-
 
     // ***** Getters *****
     public double getMass(){
@@ -51,7 +53,7 @@ public class Fly {
         this.speed = speed;
     }
 
-    // ***** Fly Methods *****
+    // ***** Fly Methods Override *****
     public String toString(){
         if (this.mass == 0){
             return "I'm DEAD but I used to be a fly with a speed of " + String.format("%.2f", speed) + ".";
@@ -61,24 +63,23 @@ public class Fly {
         }
     }
 
-    public double grow(int addMass){
-        if (mass + addMass < 20){
-            speed += addMass;
-            return mass += addMass;
+    // ***** Fly Methods *****
+    public void grow(int addMass){
+        if (this.mass + addMass < 20){
+            this.speed += addMass;
 
         } else if (mass > 20){
-            speed -= (addMass * 0.5);
-            return mass += addMass;
+            this.speed -= (addMass * 0.5);
 
         } else {
-            speed += (20 - mass);
-            speed -= (((mass + addMass) - 20) * 0.5);
-            return mass += addMass;
+            this.speed += (20 - this.mass);
+            this.speed -= (((this.mass + addMass) - 20) * 0.5);
         }
+        this.mass += addMass;
     }
 
     public boolean isDead(){
-        if(mass == 0){
+        if(this.mass == 0){
             return true;
         } else {
             return false;

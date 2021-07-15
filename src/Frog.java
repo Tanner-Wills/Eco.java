@@ -5,98 +5,100 @@ public class Frog {
 
     // ***** Frog Variables *****
     private String name;
-    private int age = 5; // age in number of months
-    private double tongueSpeed = 5;
+    private int age; // age in number of months
+    private double tongueSpeed;
     private boolean isFroglet; // a Frog is a Froglet is its age > 1 month && age < 7 months. This variable must be changed whenever age changes.
     private static String species = "Rare Pepe"; // must be the same for all instances of Frog
-    private double ageInYears = (double) age/12;
+
+    public static void main(String[] args) {
+        Frog f1 = new Frog("pong");
+        Frog f2 = new Frog("bibi", 12.0, 5.5);
+        Frog f3 = new Frog("jones", 3, 10.0);
+        System.out.println(f3);
+        f3.grow();
+        System.out.println(f3);
+
+    }
 
     // ***** Frog Constructor *****
+    public Frog(String name){
+        this(name, 5, 5);
+    }
+
+    public Frog(String name, double ageInYears, double tongueSpeed){
+        this(name, (int) (ageInYears*12), tongueSpeed);
+    }
+
     public Frog(String name, int age, double tongueSpeed){
         this.name = name;
         this.age = age;
         this.tongueSpeed = tongueSpeed;
+        if (this.age >= 1 && this.age <7){
+            isFroglet = true;
+        } else {
+            isFroglet = false;
+        }
     }
 
-    public Frog(String name){
-        this("Luis", 5, 5);
-    }
-
-    //public Frog(double ageInYears){
-        //this.ageInYears = (double) age/12;
-        //this("Bibi",ageInYears, 5);
-    //}
 
     // ***** Getters *****
-    public String getName(){
-        return this.name;
-    }
-    public int getAge(){
-        return this.age;
-    }
-    public double getTongueSpeed(){
-        return this.tongueSpeed;
-    }
-    public boolean getIsFroglet(){
-        return this.isFroglet;
-    }
-    public double getAgeInYears() {
-        return ageInYears;
+    public String getSpecies(){
+        return this.species;
     }
 
     // ***** Setters *****
-    public void setName(String name){
-        this.name = name;
-    }
-    public void setAge(int age){
-        this.age = age;
-    }
-    public void setTongueSpeed(double tongueSpeed){
-        this.tongueSpeed = tongueSpeed;
-    }
-    public void setIsFroglet(boolean isFroglet){
-        this.isFroglet = isFroglet;
-    }
-    public void setAgeInYears(double ageInYears) {
-        this.ageInYears = ageInYears;
+    public void setSpecies(String species){
+        this.species = species;
     }
 
     // ***** Methods *****
-    public int grow(int months){
+    public void grow(){
+        grow(1);
+    }
+
+    public void grow(int months){
         if(age > 30){
             tongueSpeed -= months;
-            if(tongueSpeed < 5){
-                tongueSpeed = 5;
+
+        } else if (age >= 12){
+            if((age + months) > 30){
+                tongueSpeed -= ((age + months) - 30);
             }
-            isFroglet = false;
-            return age += months;
-        } else if (age > 12){
-            if(tongueSpeed < 5){
-                tongueSpeed = 5;
-            }
-            isFroglet = false;
-            return age += months;
         } else {
-            if((age+months) > 12){
+            if ((age + months) > 12) {
                 tongueSpeed += (12 - age);
             } else {
                 tongueSpeed += months;
             }
-            if(tongueSpeed < 5){
-                tongueSpeed = 5;
-            }
-            age += months;
-            if(age > 7){
-                isFroglet = false;
-            } else {
-                isFroglet = true;
-            }
-            return age;
         }
-
-
+        age += months;
+        isFroglet = age <= 7 && age >= 1;
+        if (tongueSpeed < 5) {
+            tongueSpeed = 5;
+        }
     }
 
+    public String toString(){
+        if(isFroglet){
+            return "My name is " + name + " and I’m a rare froglet! I’m " + age + " months old and my tongue has a speed of " + String.format("%.2f", tongueSpeed) + ".";
+        } else {
+            return "My name is " + name + " and I’m a rare frog. I’m " + age + " months old and my tongue has a speed of " + String.format("%.2f", tongueSpeed) + ".";
+        }
+    }
 
+    public void eat(Fly Fly){
+        if(Fly.isDead()){
+            return;
+        }
+        //The Fly is caught if tongueSpeed is greater than the speed of the Fly.
+        if(Fly.getSpeed() < tongueSpeed){
+            if(Fly.getMass() >= age*0.5){
+                grow();
+            }
+            Fly.setMass(0);
+        } else {
+            Fly.grow(1);
+        }
+    }
 
 }
